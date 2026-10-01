@@ -13,8 +13,6 @@ horas_voo int default 0 check
 );
 CREATE TABLE voos (
 id serial primary key,
-aeronave_id FOREIGN KEY REFERENCES aeronaves(id),
-piloto_id FOREIGN KEY REFERENCES pilotos(id),
 numero_voo varchar(200) not null,
 origem varchar(100) not null,
 destino varchar(100) not null,
@@ -28,8 +26,6 @@ email varchar(100) unique not null
 );
 CREATE TABLE passagens (
 id serial primary key,
-voo_id foreign key references voos(id),
-passageiros_id foreign key references passageiros(id),
 assento varchar(4) not null,
 classe varchar(100),
 valor decimal (10,2)
