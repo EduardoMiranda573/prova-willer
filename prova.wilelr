@@ -1,0 +1,73 @@
+CREATE TABLE aeronave (
+id serial primary key,
+module varchar(100) not null,
+codigo_cauda varchar(10) unique not null,
+capacidade int not null
+);
+CREATE TABLE pilotos (
+id serial primary key,
+nome varchar(100) not null,
+codigo_anac varchar(6) unique not null,
+horas_voo int default 0 check
+
+);
+CREATE TABLE voos (
+id serial primary key,
+aeronave_id FOREIGN KEY REFERENCES aeronaves(id),
+piloto_id FOREIGN KEY REFERENCES pilotos(id),
+numero_voo varchar(200) not null,
+origem varchar(100) not null,
+destino varchar(100) not null,
+data_hora varchar(100) not null
+);
+CREATE TABLE passageiros (
+id serial primary key,
+nome varchar(100) not null,
+cpf varchar(11) unique not null,
+email varchar(100) unique not null
+);
+CREATE TABLE passagens (
+id serial primary key,
+voo_id foreign key references voos(id),
+passageiros_id foreign key references passageiros(id),
+assento varchar(4) not null,
+classe varchar(100),
+valor decimal (10,2)
+);
+
+insert into aeronave (module, codigo_cauda, capacidade) VALUES
+('gol', 'ABC-123', '1'),
+('latam', 'ADC-133', '1'),
+('azul', 'AEC-143', '1'),
+('tap', 'AFC-153', '1'),
+('avianca', 'AGC-163', '1');
+
+insert into pilotos (nome, codigo_anac, horas_voo) VALUES
+('Eduardo', 'ABG23', '1'),
+('Enzo', 'ADCt3', '1'),
+('Marco', 'AEJ43', '1'),
+('Joao E', 'AF153', '1'),
+('Vitor', 'AG163', '1');
+
+insert into voos (numero_voo, origem, destino, data_hora) VALUES
+('22221', 'sao paulo', 'rio de janeiro', '11-5'),
+('22222', 'florianopolis', 'rio de janeiro', '11-6'),
+('22223', 'salvador', 'rio de janeiro', '11-7'),
+('22224', 'brasilia', 'rio de janeiro', '11-8'),
+('22225', 'peru', 'rio de janeiro', '11-9');
+
+insert into passageiros (nome, cpf, email) VALUES
+('Dudu', '12345678901', 'dudu@gmail'),
+('Eduardo', '12345678902', 'eduardo@gmail'),
+('Lisboa', '12345678903', 'lisboa@gmail'),
+('Miranda', '12345678904', 'miranda@gmail'),
+('Eduardoo', '12345678905', 'eduardoo@gmail');
+
+insert into passagens (assento, classe) VALUES
+('ABCD', '12'), 
+('ABCE', '13'), 
+('ABCF', '14'), 
+('ABCG', '15'),
+('ABCH', '16');
+
+select * from aeronave, pilotos, voos, passageiros, passagens;
